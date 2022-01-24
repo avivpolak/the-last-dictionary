@@ -6,4 +6,5 @@ export default function PosPage() {
     let pos = param.pos;
 
     return <div>{pos}</div>;
+    
 }

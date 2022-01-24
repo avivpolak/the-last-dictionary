@@ -3,7 +3,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import POSKeys from "./db/POSKeys.json";
 import Defenition from "./Defenition";
 import LinkedParagragh from "./LinkedParagragh";
 export default function WordPage() {
@@ -12,6 +11,7 @@ export default function WordPage() {
 const [word,setWord]=useState("")
     const wordParam = param.word;
     let posParam = param.pos;
+    
 
     const searchWord = wordParam.toUpperCase()
     const [def,setDef]=useState({})
