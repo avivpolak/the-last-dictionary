@@ -9,30 +9,32 @@ import LinkedParagragh from "./LinkedParagragh";
 export default function WordPage() {
     const param = useParams();
     const navigate = useNavigate();
-
+const [word,setWord]=useState("")
     const wordParam = param.word;
     let posParam = param.pos;
+
     const searchWord = wordParam.toUpperCase()
     const [def,setDef]=useState({})
     // const def = POSKeys[wordParam.toUpperCase()];
-    const updateTickets = () => {
+    const updateWord = () => {
         axios
           .get(`https://cyjh92ance.execute-api.us-east-1.amazonaws.com/word/${searchWord}`)
-          .then((tickets) => {
-            // setErrorMessage(false);
-            setDef(tickets.data.value);
+          .then((word) => {
+            setDef(word.data.value);
           })
           .catch(() => {
-            // setErrorMessage(true);
-            setDef([]);
+            setDef({});
           });
+          setWord(searchWord)
       };
       useEffect(() => {
         // Update the document title using the browser API
-        updateTickets()
-      },[]);
-    
-    if (!def) {
+        
+        if(wordParam.toUpperCase()!==word.toUpperCase())
+        updateWord()
+      },[wordParam,posParam]);
+      const poss = Object.keys(def);
+    if (poss.length === 0) {
         console.log("no def");
         return (
             <div className="Word">
@@ -46,7 +48,7 @@ export default function WordPage() {
             </div>
         );
     }
-    const poss = Object.keys(def);
+
     if (poss.length === 1 && !posParam) {
         console.log("navigating...")
         navigate(`/${wordParam}/${poss[0]}`, { replace: true });
@@ -80,7 +82,15 @@ export default function WordPage() {
             </div>
         );
     } else {
-        const { synonyms, definitions } = def[posParam];
+        let synonyms = []
+        let definitions = []
+        if(def[posParam].hasOwnProperty('synonyms')){
+            synonyms= def[posParam].synonyms
+        }
+        if(def[posParam].hasOwnProperty('definitions')){
+            definitions= def[posParam].definitions
+        }
+    
         return (
             <div className="Word">
                 <h1>
