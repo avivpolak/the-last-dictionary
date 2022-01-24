@@ -1,5 +1,7 @@
 /** @format */
 
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import POSKeys from "./db/POSKeys.json";
 import Defenition from "./Defenition";
@@ -10,7 +12,26 @@ export default function WordPage() {
 
     const wordParam = param.word;
     let posParam = param.pos;
-    const def = POSKeys[wordParam.toUpperCase()];
+    const searchWord = wordParam.toUpperCase()
+    const [def,setDef]=useState({})
+    // const def = POSKeys[wordParam.toUpperCase()];
+    const updateTickets = () => {
+        axios
+          .get(`https://cyjh92ance.execute-api.us-east-1.amazonaws.com/word/${searchWord}`)
+          .then((tickets) => {
+            // setErrorMessage(false);
+            setDef(tickets.data.value);
+          })
+          .catch(() => {
+            // setErrorMessage(true);
+            setDef([]);
+          });
+      };
+      useEffect(() => {
+        // Update the document title using the browser API
+        updateTickets()
+      },[]);
+    
     if (!def) {
         console.log("no def");
         return (
