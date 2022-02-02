@@ -15,7 +15,6 @@ export default function WordPage() {
 
     const searchWord = wordParam?.toUpperCase()||"welcome"
     const [def, setDef] = useState({});
-    // const def = POSKeys[wordParam.toUpperCase()];
     const updateWord = () => {
         axios
             .get(
