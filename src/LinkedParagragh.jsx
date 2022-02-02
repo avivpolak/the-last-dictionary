@@ -1,12 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import StyledLink from "./StyledLink";
+
+
+
 export default function LinkedParagragh({ children }) {
     let words = children.split(" ");
     words = words.map((word) => word.replace(/[./,';!@#$%^&*()]/, ""));
     return (
         <div>
             {words.map((word) => {
-                return <Link style={{ textDecoration: 'none' }} to={`/${word}`}>{word + " "}</Link>;
+                return <StyledLink style={{ textDecoration: 'none' }} to={`/${word}`}>{word + " "}</StyledLink>;
             })}
         </div>
     );
