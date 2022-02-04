@@ -1,25 +1,18 @@
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
-
+import "./Header.scss";
 export default function Header() {
     const nav = useNavigate();
     const searchInput = useRef(null);
     return (
-        <div>
-            <input
-                type={"text"}
-                placeholder={"search"}
-                ref={searchInput}
-            ></input>
-            <button
-                onClick={() => {
-                    nav(`/${searchInput.current.value}`);
-                }}
-            >
-                Go for a search!
-            </button>
-            <button onClick={() => nav(-1)}>go back</button>
-            <button onClick={() => nav(1)}>go forword</button>
-        </div>
+        <form
+            onSubmit={() => {
+                nav(`/${searchInput.current.value}`);
+            }}
+            className="search-box"
+        >
+            <input ref={searchInput} type="text" placeholder=" " />
+            <button type="reset"></button>
+        </form>
     );
 }

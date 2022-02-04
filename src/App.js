@@ -4,6 +4,7 @@ import Main from "./Main";
 import PosPage from "./PosPage";
 import Dictionary from "./Dictionary";
 import Header from "./Header";
+import Home from "./Home";
 
 function App() {
     return (
@@ -11,7 +12,7 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path="/part-of-speach/:pos" element={<PosPage />} />
-                    <Route path="/" element={<Header />} />
+                    <Route path="/" element={<Home />} />
                     <Route path="/:word" element={<Dictionary />} />
                     <Route path="/:word/:pos" element={<Dictionary />} />
                 </Routes>

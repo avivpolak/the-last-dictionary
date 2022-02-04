@@ -21,11 +21,14 @@ export default function WordPage() {
                 `https://cyjh92ance.execute-api.us-east-1.amazonaws.com/word/${searchWord}`
             )
             .then((word) => {
+                console.log(word)
                 setDef(word.data.value);
             })
-            .catch(() => {
+            .catch((err) => {
+                console.log(err)
                 setDef({});
             });
+        
         setWord(searchWord);
     };
     useEffect(() => {
