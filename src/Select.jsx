@@ -1,22 +1,25 @@
 import React, { useRef } from "react";
 // import "./Select.scss";
-export default function Select({ options, onChange }) {
+export default function Select({ options, onChange, availables }) {
+    if (!availables) availables = [];
 
-   
     const selectRef = useRef(null);
-    if (options) { 
-      
+    if (options) {
         return (
             <select
+                defaultValue={"random"}
                 ref={selectRef}
-                defaultValue={options[0]}
-                onChange={() => {
+                onClick={() => {
                     console.log(selectRef.current.value);
+
                     onChange(selectRef.current.value);
                 }}
             >
+                <option>random</option>
                 {options?.map((option) => (
-                    <option className="title animated fadeIn">{option}</option>
+                    <option disabled={!availables.includes(option)}>
+                        {option}
+                    </option>
                 ))}
             </select>
         );

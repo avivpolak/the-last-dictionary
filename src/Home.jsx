@@ -2,25 +2,44 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "./Header";
-//importing random.png
 import random from "./media/random.png";
 import Select from "./Select";
 import posDict from "./db/posDict.json";
+import reverseDict from "./db/reverseDict.json";
+import letters from "./db/letters.json";
 
 export default function Home() {
     const nav = useNavigate();
-    const [pos, setPos] = useState("noun");
-    const [letter, setLetter] = useState("");
+    const [pos, setPos] = useState("random");
+    const [letter, setLetter] = useState("random");
     const [err, setErr] = useState("");
-    const [options, setOptions] = useState({
-        // noun: ["a", "b", "c", "d", "e", "f", "g"],
-    });
-    const getRandomWord = (posDict, pos) => {
-        console.log(letter)
+    const [options, setOptions] = useState({});
+
+    const baseUrl =
+        "https://cyjh92ance.execute-api.us-east-1.amazonaws.com/part-of-speech/";
+    const all = (options) => {
+        const availbleLetters = [];
+        Object.keys(options).forEach((option) => {
+            options[option].forEach((letter) => {
+                if (!availbleLetters.includes(letter)) {
+                    availbleLetters.push(letter);
+                }
+            });
+        });
+        return availbleLetters;
+    };
+    const getRandomWord = (baseUrl, posDict, pos, letter) => {
+        let urlPos = posDict[pos];
+        let urlLetter = letter;
+        if (pos === "random") {
+            urlPos = "random";
+        }
+        if (letter === "random") {
+            urlLetter = "";
+        }
+
         axios
-            .get(
-                `https://cyjh92ance.execute-api.us-east-1.amazonaws.com/part-of-speech/${posDict[pos]}?letter=${letter}`
-            )
+            .get(`${baseUrl}${urlPos}?letter=${urlLetter}`)
             .then((res) => {
                 if (res.data.differentPosAndOptions) {
                     setOptions(res.data.differentPosAndOptions);
@@ -33,31 +52,55 @@ export default function Home() {
                 setErr(err.message);
             });
     };
-
+    useEffect(() => {
+        axios
+            .get(
+                `https://cyjh92ance.execute-api.us-east-1.amazonaws.com/part-of-speech/options`
+            )
+            .then((res) => {
+                if (res.data.differentPosAndOptions) {
+                    setOptions(res.data.differentPosAndOptions);
+                }
+                all(options);
+            })
+            .catch((err) => {
+                setErr(err.message);
+            });
+    }, []);
 
     return (
         <div>
             <h1>Dictionary</h1>
-            <Header />
-
-            <Select options={Object.keys(posDict)} onChange={setPos} />
-            <Select options={options[posDict[pos]]} onChange={setLetter} />
+            <Header /> <br />
+            select part of speech:
+            <br />
+            <Select
+                options={Object.keys(posDict)}
+                onChange={setPos}
+                availables={Object.keys(options).map(
+                    (short) => reverseDict[short]
+                )}
+            />
+            <br />
+            select letter:
+            <br />
+            <Select
+                options={letters}
+                onChange={setLetter}
+                availables={
+                    pos === "random" ? all(options) : options[posDict[pos]]
+                }
+            />
+            <br />
             <img
                 src={random}
                 alt="give me a random word!"
                 className="random"
                 onClick={() => {
-                    getRandomWord(posDict, pos);
+                    getRandomWord(baseUrl, posDict, pos, letter);
                 }}
             />
-
-            {Object.keys(options).map((pos) => {
-                return (
-                    <p>
-                        {pos} {options[pos]}
-                    </p>
-                );
-            })}
+            <p>{err}</p>
         </div>
     );
 }

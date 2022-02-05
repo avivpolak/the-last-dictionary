@@ -12,31 +12,33 @@ export default function WordPage() {
     const [word, setWord] = useState("");
     const wordParam = param.word;
     let posParam = param.pos;
-console.log(param)
+
     const searchWord = wordParam?.toUpperCase() || "";
     const [def, setDef] = useState({});
-    const updateWord = () => {
-        console.log(searchWord);
-        axios
-            .get(
+    const updateWord = async () => {
+        try {
+            const response = await axios.get(
                 `https://cyjh92ance.execute-api.us-east-1.amazonaws.com/word/${searchWord}`
-            )
-            .then((word) => {
-                console.log(word)
-                setDef(word.data.value);
-            })
-            .catch((err) => {
-                console.log(err)
-                setDef({});
-            });
-        
-        setWord(searchWord);
+            );
+            console.log(response);
+            if (response.data.value) {
+                setDef(response.data.value);
+            } else {
+                console.log("no word");
+            }
+        } catch (err) {
+            console.log(err);
+            setDef({});
+        }
     };
     useEffect(() => {
         // Update the document title using the browser API
 
-        if (wordParam.toUpperCase() !== word.toUpperCase()) updateWord();
+        if (wordParam.toUpperCase() !== word.toUpperCase()) {
+            updateWord();
+        }
     }, [wordParam, posParam]);
+
     const poss = Object.keys(def);
 
     let synonyms = [];
