@@ -12,10 +12,11 @@ export default function WordPage() {
     const [word, setWord] = useState("");
     const wordParam = param.word;
     let posParam = param.pos;
-
-    const searchWord = wordParam?.toUpperCase()||"welcome"
+console.log(param)
+    const searchWord = wordParam?.toUpperCase() || "";
     const [def, setDef] = useState({});
     const updateWord = () => {
+        console.log(searchWord);
         axios
             .get(
                 `https://cyjh92ance.execute-api.us-east-1.amazonaws.com/word/${searchWord}`
