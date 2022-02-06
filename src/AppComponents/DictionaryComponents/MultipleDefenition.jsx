@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import LinkedParagragh from './LinkedParagragh';
+import LinkedParagragh from '../../HelperComponents/LinkedParagragh';
 
 export default function MultipleDefenition({word,pos,poss}) {
   return      <div className="Word">
@@ -15,7 +15,7 @@ export default function MultipleDefenition({word,pos,poss}) {
   {poss.map((pos) => {
       return (
           <div>
-              <Link to={`/${word}/${pos}`}>
+              <Link to={`/word/${word}/${pos}`}>
                   {word}({pos})
               </Link>
               <br />

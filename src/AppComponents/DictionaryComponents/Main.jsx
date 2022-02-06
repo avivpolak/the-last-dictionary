@@ -8,8 +8,8 @@ import MultipleDefenition from "./MultipleDefenition";
 import NoDefenition from "./NoDefenition";
 export default function WordPage() {
     const param = useParams();
-    const navigate = useNavigate();
     const [word, setWord] = useState("");
+
     const wordParam = param.word;
     let posParam = param.pos;
 
@@ -20,14 +20,10 @@ export default function WordPage() {
             const response = await axios.get(
                 `https://cyjh92ance.execute-api.us-east-1.amazonaws.com/word/${searchWord}`
             );
-            console.log(response);
             if (response.data.value) {
                 setDef(response.data.value);
-            } else {
-                console.log("no word");
             }
         } catch (err) {
-            console.log(err);
             setDef({});
         }
     };
@@ -51,9 +47,9 @@ export default function WordPage() {
     }
 
     //if there is only one defenition , go diractly to this page
-    if (poss.length === 1 && !posParam) {
-        navigate(`/${wordParam}/${poss[0]}`, { replace: true });
-    }
+    // if (poss.length === 1 && !posParam) {
+    //     navigate(`/${wordParam}/${poss[0]}123`, { replace: true });
+    // }
 
     if (poss.length === 0) {
         return <NoDefenition word={wordParam} />;

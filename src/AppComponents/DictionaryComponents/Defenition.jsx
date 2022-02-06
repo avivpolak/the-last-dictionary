@@ -1,5 +1,6 @@
 import React from "react";
-import LinkedParagragh from "./LinkedParagragh";
+import LinkedParagragh from "../../HelperComponents/LinkedParagragh";
+
 export default function Defenition({word,pos, synonyms, definitions  }) {
     if (!definitions) definitions = ["no definitions"];
     if (!synonyms) synonyms = ["no synonyms"];

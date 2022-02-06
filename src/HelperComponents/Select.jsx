@@ -10,8 +10,6 @@ export default function Select({ options, onChange, availables }) {
                 defaultValue={"random"}
                 ref={selectRef}
                 onClick={() => {
-                    console.log(selectRef.current.value);
-
                     onChange(selectRef.current.value);
                 }}
             >

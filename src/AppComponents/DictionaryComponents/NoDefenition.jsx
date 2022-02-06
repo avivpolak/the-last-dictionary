@@ -1,5 +1,5 @@
 import React from "react";
-import LinkedParagragh from "./LinkedParagragh";
+import LinkedParagragh from "../../HelperComponents/LinkedParagragh";
 
 export default function NoDefenition({word}) {
     return (

@@ -1,13 +1,17 @@
 import React, { useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import "./Header.scss";
-export default function Header() {
+import { Link, useNavigate } from "react-router-dom";
+import "./SearchBar.scss";
+export default function SearchBar() {
     const nav = useNavigate();
     const searchInput = useRef(null);
     return (
         <form
             onSubmit={() => {
-                nav(`/${searchInput.current.value}`);
+                {
+                    searchInput.current.value
+                        ? nav(`/word/${searchInput.current.value}`)
+                        : nav("/");
+                }
             }}
             className="search-box"
         >
