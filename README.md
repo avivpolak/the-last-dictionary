@@ -14,7 +14,7 @@ some pics:
 ![results](./pictures/results.png)
 ![defenition](./pictures/defenition.png)
 ![Section](./pictures/random Section.png)
-![choosing](./pictures/choosing letter.png)
+![letter](./pictures/choosing letter.png)
 ![choosing](./pictures/choosing part of speach.png)
 ![result](./pictures/random result.png)
 
