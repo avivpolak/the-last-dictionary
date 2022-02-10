@@ -13,8 +13,6 @@ some pics:
 ![search](./pictures/search.png)
 ![results](./pictures/results.png)
 ![defenition](./pictures/defenition.png)
-
-random:
 ![Section](./pictures/random Section.png)
 ![choosing](./pictures/choosing letter.png)
 ![choosing](./pictures/choosing part of speach.png)
