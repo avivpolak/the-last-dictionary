@@ -14,8 +14,8 @@ export default function Select({ options, onChange, availables }) {
                 }}
             >
                 <option>random</option>
-                {options?.map((option) => (
-                    <option disabled={!availables.includes(option)}>
+                {options?.map((option,i) => (
+                    <option key={i} disabled={!availables.includes(option)}>
                         {option}
                     </option>
                 ))}

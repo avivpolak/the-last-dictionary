@@ -5,11 +5,11 @@ export default function LinkedParagragh({ children }) {
     let words = children.split(/(\w+)/);
     return (
         <div>
-            {words.map((word) => {
+            {words.map((word,i) => {
                 return word.match(/\w+/) ? (
-                    <StyledLink to={`/word/${word}`}>{word}</StyledLink>
+                    <StyledLink key={i} to={`/word/${word}`}>{word}</StyledLink>
                 ) : (
-                    <span>{word}</span>
+                    <span key={i}>{word}</span>
                 );
             })}
         </div>

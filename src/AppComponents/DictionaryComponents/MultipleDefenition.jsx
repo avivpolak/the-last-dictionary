@@ -12,9 +12,9 @@ export default function MultipleDefenition({word,pos,poss}) {
       one of the Part-Of-Speaches below.
   </LinkedParagragh>
   <br />
-  {poss.map((pos) => {
+  {poss.map((pos,i) => {
       return (
-          <div>
+          <div key={i}>
               <Link to={`/word/${word}/${pos}`}>
                   {word}({pos})
               </Link>

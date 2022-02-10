@@ -16,15 +16,15 @@ export default function Defenition({word,pos, synonyms, definitions  }) {
                 <LinkedParagragh>definitions</LinkedParagragh>
             </h2>
 
-            {definitions.map((def) => (
-                <LinkedParagragh>{def}</LinkedParagragh>
+            {definitions.map((def, i) => (
+                <LinkedParagragh key={i}>{def}</LinkedParagragh>
             ))}
             <br />
             <h2>
                 <LinkedParagragh>synonyms</LinkedParagragh>
             </h2>
-            {synonyms.map((syn) => (
-                <LinkedParagragh>{syn}</LinkedParagragh>
+            {synonyms.map((syn,i) => (
+                <LinkedParagragh key={i}>{syn}</LinkedParagragh>
             ))}
             <br />
         </div>
